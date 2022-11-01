@@ -13,10 +13,12 @@ import java.util.LinkedList;
 public class PizzaMuzzarella extends Productos{
     public PizzaMuzzarella(){
         super();
-        this.ingredientes.add(1.0f);
-        this.ingredientes.add(200.0f);
-        this.ingredientes.add(2.0f);
-        this.ingredientes.add(1.0f);
+        this.ingredientes.add(1f);
+        this.ingredientes.add(200f);
+        this.ingredientes.add(2f);
+        this.ingredientes.add(1f);
+        this.precio=500f;
+        this.tiempoElaboracion=20;
     }
     
     

@@ -15,16 +15,13 @@ import java.util.List;
 public class PizzaConPalmitos extends PizzaMuzzarella {
     public PizzaConPalmitos(){
         super();
-        this.ingredientes.add(3.0f);
-        this.ingredientes.add(4.0f);
+        this.ingredientes.add(3f);
+        this.ingredientes.add(4f);
+        this.precio=900f;
+        this.tiempoElaboracion=30;
         
     }
     
     
-    
-    
-    /*private List<String> ingredientes=new ArrayList<String>(List.of("Palmito"));
-    private List<Double> cantIngredientes=new ArrayList<Double>(List.of(8.0));*/
-
-    
+     
 }

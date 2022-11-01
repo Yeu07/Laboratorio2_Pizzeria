@@ -1,14 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package laboratorio2;
 
-/**
- *
- * @author Estudiar
- */
+
 public class PizzaBacon extends PizzaMuzzarella{
+	
+	public PizzaBacon() {
     super();
-    this.ingredientes.add(4.0f);
+    this.ingredientes.add(4f);
+    this.ingredientes.add(2f);
+    this.precio=950f;
+    this.tiempoElaboracion=30;
+    }
+
 }
