@@ -1,6 +1,6 @@
 package laboratorio2;
 
-import java.util.LinkedList;
+
 
 public class PizzaChorizo extends PizzaMuzzarella {
 	

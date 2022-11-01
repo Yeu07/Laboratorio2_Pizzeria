@@ -4,7 +4,7 @@
  */
 package laboratorio2;
 
-import java.util.Date;
+
 
 /**
  *
@@ -17,10 +17,6 @@ public class Pizzeria {
     private boolean abierto;
     private Cajero cajero;
     private Mesero mesero;
-    
-    public void contratarCajero(String nombre, String nacionalidad, String ubicacionVivienda,int DNI, Date fechaNacimiento){
-        cajero=new Cajero(nombre,nacionalidad,ubicacionVivienda,DNI,fechaNacimiento);
-    }
     
     
 }

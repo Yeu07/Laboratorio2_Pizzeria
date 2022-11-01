@@ -10,7 +10,12 @@ package laboratorio2;
  */
 public class Caja {
     private float dineroCaja=0;
+    
     public void setDineroCaja(float pago){
         this.dineroCaja+=pago;
+    }
+    
+    public float getDineroCaja() {
+    	return this.dineroCaja;
     }
 }

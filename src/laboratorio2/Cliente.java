@@ -4,30 +4,42 @@
  */
 package laboratorio2;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 /**
  *
  * @author Estudiar
  */
 public class Cliente {
-    private int cantClientes;
-    private int cantNinios, cantJovenes, cantTrabajadores, cantTuristas;
-    private float promNinios,promJovenes, promTrabajadores,promTurista;
-    public Cliente(){
-        //¿Que tendria cliente que relacione entre todos?
-    }
+    protected String nombre;
     
-    /*public void cantClientes(String[] x){
-        this.cantClientes=x.length;
-        for (int i = 0; i < x.length; i++) {
-            if (x[i]=="Ninio"){
-                this.cantNinios+=1;
-            }else if(x[i]=="Joven"){
-                this.cantJovenes+=1;
-            }else if(x[i]=="Trabajador"){
-                this.cantTrabajadores+=1;
-            }else{
-                this.cantTuristas+=1;
-            }  
-        }
-    }*/
+    public Cliente(String nombre) {
+    	this.nombre=nombre;
+    }
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+    
+    public LinkedList<Productos> pedirComida(Menu menu){
+    	LinkedList<Productos> pedido= new LinkedList<Productos>();
+    	Random random= new Random();
+    	int tipoComida=random.nextInt(3);
+    	
+    	switch(tipoComida) {
+    	case 0:
+    		int posPizza=random.nextInt(menu.getPizzas().length);
+    		menu.buscaPizza(posPizza);
+    	case 1:
+    		int posHamburugesa
+    	}
+    	
+    	
+    
+    }
 }

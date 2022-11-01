@@ -4,7 +4,7 @@
  */
 package laboratorio2;
 
-import java.util.LinkedList;
+
 
 /**
  *

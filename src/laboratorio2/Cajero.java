@@ -11,12 +11,14 @@ import java.util.Date;
  * @author Estudiar
  */
 public class Cajero extends Empleados {
-    private Caja caja= new Caja();
-    public Cajero(String nombre, String nacionalidad, String ubicacionVivienda,int DNI, Date fechaNacimiento){
-        super(nombre, nacionalidad, ubicacionVivienda,DNI, fechaNacimiento);
-    }
-    public void cobrar(float pago){
-        caja.setDineroCaja(pago);
-    }
     
+	public Cajero(String nombre, String nacionalidad,float sueldo,int dni, Date fechaNacimiento) {
+		super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
+	}
+    
+	public void cobrar(Caja caja, float dinero) {
+		System.out.println("El total es "+dinero);
+		caja.setDineroCaja(dinero);
+	}
+	
 }

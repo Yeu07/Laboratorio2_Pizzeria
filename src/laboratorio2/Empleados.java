@@ -11,56 +11,55 @@ import java.util.Date;
  * @author Estudiar
  */
 public class Empleados {
-    private String nombre, nacionalidad, ubicacionVivienda;
-    private int DNI;
-    private Date fechaNacimiento= new Date();
-    
-    public Empleados(String nombre, String nacionalidad, String ubicacionVivienda,int DNI, Date fechaNacimiento){
-        this.nombre=nombre;
-        this.nacionalidad=nacionalidad;
-        this.ubicacionVivienda=ubicacionVivienda;
-        this.DNI=DNI;
-        this.fechaNacimiento=fechaNacimiento;
-    }
+	protected String nombre,nacionalidad;
+	protected float sueldo;
+	protected final int dni;
+	protected final Date fechaNacimiento;
+	
+	public Empleados(String nombre, String nacionalidad, float sueldo, int dni, Date fechaNacimiento) {
+		this.nombre=nombre;
+		this.sueldo=sueldo;
+		this.nacionalidad=nacionalidad;
+		this.dni = dni;
+		this.fechaNacimiento = fechaNacimiento;
+		
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public float getSueldo() {
+		return sueldo;
+	}
+	
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+	
+	public int getDni() {
+		return dni;
+	}
 
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public String getUbicacionVivienda() {
-        return ubicacionVivienda;
-    }
 
-    public int getDNI() {
-        return DNI;
-    }
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setSueldo(float sueldo) {
+		this.sueldo = sueldo;
+	}
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
 
-    public void setUbicacionVivienda(String ubicacionVivienda) {
-        this.ubicacionVivienda = ubicacionVivienda;
-    }
-
-    public void setDNI(int DNI) {
-        this.DNI = DNI;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	} 
+	
+ 
     
 }

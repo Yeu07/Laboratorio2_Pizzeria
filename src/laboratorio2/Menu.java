@@ -4,7 +4,7 @@
  */
 package laboratorio2;
 
-import java.util.LinkedList;
+
 
 /**
  *
@@ -16,37 +16,89 @@ public class Menu {
     private Productos[] bebidas;
     private Productos[] postres;
     private Productos[] pastas;
-    private Productos hamburugesa;
+    private Productos[] hamburguesas;
+    private Productos[] cafes;
     
     
+    public Productos[] getCafes() {
+		return cafes;
+	}
+
+
+	public Productos[] getPizzas() {
+		return pizzas;
+	}
     
-    public Productos getPizza(int pos) {
-    	return pizzas[pos];
-    }
+    public Productos[] getBebidas() {
+		return bebidas;
+	}
     
-    public Productos getBebida(int pos) {
-    	return bebidas[pos];
-    }
+    public Productos[] getPostres() {
+		return postres;
+	}
     
-    public Productos getPostre(int pos) {
-    	return postres[pos];
-    }
+    public Productos[] getPastas() {
+		return pastas;
+	}
     
-    public Productos getPasta(int pos) {
-    	return pastas[pos];
-    }
-    
-    public Productos getHamburguesa() {
-    	return this.hamburugesa;
-    }
-    
-    public void agregarPizza(Productos pizza) {
+    public Productos[] getHamburguesas() {
+		return hamburguesas;
+	}
+
+	public void setPizzas(Productos[] pizzas) {
+		this.pizzas = pizzas;
+	}
+	
+	public void setBebidas(Productos[] bebidas) {
+		this.bebidas = bebidas;
+	}
+
+	
+	public void setPostres(Productos[] postres) {
+		this.postres = postres;
+	}
+
+	
+	public void setPastas(Productos[] pastas) {
+		this.pastas = pastas;
+	}
+
+	
+	public void setHamburguesas(Productos[] hamburguesas) {
+		this.hamburguesas = hamburguesas;
+	}
+
+	public void agregarPizza(Productos pizza) {
     	Productos[] nuevalista=new Productos[(this.pizzas.length)+1];
     	for (int i=0;i<this.pizzas.length;i++) {
     		nuevalista[i]=this.pizzas[i];
     	}
     	nuevalista[nuevalista.length]=this.pizzas[this.pizzas.length];
     	this.pizzas=nuevalista;
+    }
+    
+    public Productos buscaPizza(int pos) {
+    	return this.pizzas[pos];
+    }
+    
+    public Productos buscaBebida(int pos) {
+    	return this.bebidas[pos];
+    }
+    
+    public Productos buscaPostre(int pos) {
+    	return this.postres[pos];
+    }
+    
+    public Productos buscaPasta(int pos) {
+    	return this.pastas[pos];
+    }
+    
+    public Productos buscaHamburguesa(int pos) {
+    	return this.hamburguesas[pos];
+    }
+    
+    public Productos buscaCafe(int pos) {
+    	return this.cafes[pos];
     }
  
     
