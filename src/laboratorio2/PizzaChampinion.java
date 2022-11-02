@@ -6,6 +6,8 @@ public class PizzaChampinion extends PizzaMuzzarella {
         super();
         this.ingredientes.add(13f);
         this.ingredientes.add(5f);
+        this.ingredientes.add(15f);
+        this.ingredientes.add(8f);
         this.precio=850f;
         this.tiempoElaboracion=25;
         

@@ -16,6 +16,8 @@ public class PizzaConPalmitos extends PizzaMuzzarella {
         super();
         this.ingredientes.add(3f);
         this.ingredientes.add(4f);
+        this.ingredientes.add(14f);
+        this.ingredientes.add(8f);
         this.precio=900f;
         this.tiempoElaboracion=30;
         

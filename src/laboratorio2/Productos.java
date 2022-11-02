@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * @author Estudiar
  */
 public class Productos {
-    protected int tiempoElaboracion=0;
+    protected int tiempoElaboracion=1;
     protected float precio;
     protected LinkedList<Float> ingredientes=new LinkedList<Float>();
     

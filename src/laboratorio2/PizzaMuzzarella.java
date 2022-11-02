@@ -17,6 +17,8 @@ public class PizzaMuzzarella extends Productos{
         this.ingredientes.add(200f);
         this.ingredientes.add(2f);
         this.ingredientes.add(1f);
+        this.ingredientes.add(14f);
+        this.ingredientes.add(8f);
         this.precio=500f;
         this.tiempoElaboracion=20;
     }
