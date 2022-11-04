@@ -17,6 +17,8 @@ import com.app.pizzeria.Menu;
 public class Cliente {
     protected String nombre;
     
+    public Cliente() {}
+    
     public Cliente(String nombre) {
     	this.nombre=nombre;
     }
@@ -34,6 +36,8 @@ public class Cliente {
     	Random random= new Random();
     	int tipoComida=random.nextInt(3);
     	
+    	// Pediran Comida, cafe o bebida y postre
+    	
     	switch(tipoComida) {
     	case 0:
     		int posPizza=random.nextInt(menu.getPizzas().length);
@@ -42,9 +46,31 @@ public class Cliente {
     	case 1:
     		int posHamburugesa=random.nextInt(menu.getHamburguesas().length);
     		pedido.add(menu.buscaHamburguesa(posHamburugesa));
+    		break;
+    	case 2:
+    		int posPasta=random.nextInt(menu.getPastas().length);
+    		pedido.add(menu.buscaPasta(posPasta));
+    		break;
     	}
     	
     	
-    
+    	int tipoBebida=random.nextInt(2);
+    	
+    	switch(tipoBebida) {
+    	case 0:
+    		int posCafe=random.nextInt(menu.getCafes().length);
+    		pedido.add(menu.buscaCafe(posCafe));
+    		break;
+    	case 1:
+    		int posBebida=random.nextInt(menu.getBebidas().length);
+    		pedido.add(menu.buscaBebida(posBebida));
+    		break;
+    	}
+    	
+    	int posPostre=random.nextInt(menu.getPostres().length);
+    	pedido.add(menu.buscaPostre(posPostre));
+    	
+    	return pedido;
+    	
     }
 }

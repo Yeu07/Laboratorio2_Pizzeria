@@ -4,6 +4,9 @@
  */
 package com.app.exe;
 
+import com.app.models.Cliente;
+import com.app.models.Mesero;
+import com.app.pizzeria.Menu;
 
 /**
  *
@@ -15,6 +18,9 @@ public class Laboratorio2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    	Menu menu= new Menu();
+       Cliente cliente= new Cliente("Pedro");
+
        
   }
 }
