@@ -5,7 +5,6 @@
 package com.app.models;
 
 import com.app.alimentos.Alimento;
-import com.app.pizzeria.Cocina;
 import com.app.pizzeria.Menu;
 import java.util.Date;
 import java.util.LinkedList;
@@ -21,7 +20,7 @@ public class Mesero extends Empleado{
 		super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
 	}
 	
-        private LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes){
+        public LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes){
             LinkedList<Alimento> pedidoTerminado=new LinkedList<Alimento>();
             LinkedList<Alimento> pedidoActual=new LinkedList<Alimento>();
             int i=0;

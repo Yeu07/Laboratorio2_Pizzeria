@@ -4,16 +4,6 @@
  */
 package com.app.exe;
 
-import com.app.alimentos.*;
-import com.app.models.Cliente;
-import com.app.models.Mesero;
-import com.app.models.Ninio;
-import com.app.pizzeria.Cocina;
-import com.app.pizzeria.Menu;
-import com.app.pizzeria.Pizzeria;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Random;
 
 /**
  *
@@ -25,22 +15,19 @@ public class Laboratorio2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	Menu menu= new Menu();
+    	
+    	
+    	/*Menu menu= new Menu();
         Cliente cliente= new Ninio("Pedro");
         Pizzeria pizzeria= new Pizzeria("Italia",(int) 2613070697.0f,true);
         Mesero jorge=new Mesero("Jorge","Argentina",3000f,44905308,new Date(122,02,02));
         
-        /*pizzeria.contratarEmpleado(jorge);
+        pizzeria.contratarEmpleado(jorge);
         pizzeria.despedirEmpleado(jorge);
         System.out.println(pizzeria.getMeseros());*/
         
         
-        
-        
-        
     }
-
-    
     
 }
 
