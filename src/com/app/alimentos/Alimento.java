@@ -14,7 +14,7 @@ public class Alimento {
     protected int tiempoElaboracion=1;
     protected float precio;
     protected LinkedList<Float> ingredientes=new LinkedList<Float>();
-    public boolean hayIngredientes=true;
+    protected boolean hayIngredientes=true;
     
     public LinkedList<Float> getIngredientes(){
         return this.ingredientes;
@@ -27,6 +27,10 @@ public class Alimento {
 	public float getPrecio() {
 		return precio;
 	}
+	
+	public boolean getHayIngredientes() {
+	       return this.hayIngredientes;
+	    }
 
 	public void setTiempoElaboracion(int tiempoElaboracion) {
 		this.tiempoElaboracion = tiempoElaboracion;
@@ -39,10 +43,12 @@ public class Alimento {
 	public void setIngredientes(LinkedList<Float> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
+	
+	public void setHayIngredientes(boolean hay) {
+		this.hayIngredientes=hay;
+	}
 
-    public boolean hayIngredientes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
 
 }

@@ -19,34 +19,29 @@ public class Mesero extends Empleado{
 	public Mesero(String nombre, String nacionalidad,float sueldo,int dni, Date fechaNacimiento) {
 		super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
 	}
-	private void recibirPedido(LinkedList<Alimento> pedido){
-            
-            
-        }
+	
+	
+	
+
         
-        //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
+      /*  //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
         private boolean consultarIngredientes(LinkedList<Alimento> listaPedido){
             Cocina verIngredientes = new Cocina();
             float pos;
             //realizo un for para ver los pedidos del cliente
             for (Alimento consulta:listaPedido) {
-                //Verifico primero si ya se marco de antemano que no quedan ingredientes para dicho Alimento
-                if (consulta.hayIngredientes==true){
                     //Si figura true, entonces se realiza un for para verificar si se encuentra la cantidad
                     //necesaria de ingredientes para cada alimento
                     for (int i = 0; i < consulta.getIngredientes().size()-1; i++) {
                         if (i%2!=0) {
                             pos=consulta.getIngredientes().get(i-1);
                             if (verIngredientes.cantIngredientes[(int)pos-1] < consulta.getIngredientes().get(i)){
-                                consulta.hayIngredientes=false;
+                                consulta.setHayIngredientes(false);
                                 //En caso de que algun alimento necesite un ingrediente que no haya tal cantidad
                                 // entonces se marca el alimento como "false" y se retorna falso
                                 return false;
                             }
                         }
-                    }
-                }else{
-                    return false;
                 }
             }
             //Si en ningun momento devolvio false entonces existe la cantidad de ingredientes 
@@ -61,7 +56,7 @@ public class Mesero extends Empleado{
                 }
             }
             return true;
-        }
+        } */
         
 	private int contarMesas(LinkedList<Mesa> listaMesas) {
 		int suma=0;

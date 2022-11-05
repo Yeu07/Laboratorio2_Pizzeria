@@ -12,6 +12,11 @@ public class Ninio extends Cliente {
 	public Ninio(String nombre) {
 		super(nombre);
 	}
+	
+	
+    	
+    	
+  
 
 	// un Niño no puede pedir bebida alcholica
 	@Override
@@ -23,16 +28,13 @@ public class Ninio extends Cliente {
 	    	
 	    	switch(tipoComida) {
 	    	case 0:
-	    		int posPizza=random.nextInt(menu.getPizzas().length);
-	    		pedido.add(menu.buscaPizza(posPizza));
+	    		generarAlimentoRandom(menu.getPizzas(), pedido);
 	    		break;
 	    	case 1:
-	    		int posHamburugesa=random.nextInt(menu.getHamburguesas().length);
-	    		pedido.add(menu.buscaHamburguesa(posHamburugesa));
+	    		generarAlimentoRandom(menu.getHamburguesas(), pedido);
 	    		break;
 	    	case 2:
-	    		int posPasta=random.nextInt(menu.getPastas().length);
-	    		pedido.add(menu.buscaPasta(posPasta));
+	    		generarAlimentoRandom(menu.getPastas(), pedido);
 	    		break;
 	    	}
 	    	
@@ -42,8 +44,7 @@ public class Ninio extends Cliente {
 	    	
 			switch(tipoBebida) {
 	    	case 0:
-	    		int posCafe=random.nextInt(menu.getCafes().length);
-	    		pedido.add(menu.buscaCafe(posCafe));
+	    		generarAlimentoRandom(menu.getCafes(), pedido);
 	    		break;
 	    	case 1:
 	    		int posBebida=-1;
@@ -53,8 +54,7 @@ public class Ninio extends Cliente {
 	    		pedido.add(menu.buscaBebida(posBebida));
 	    	}
 	    	
-	    	int posPostre=random.nextInt(menu.getPostres().length);
-	    	pedido.add(menu.buscaPostre(posPostre));
+			generarAlimentoRandom(menu.getPostres(), pedido);
 	    	
 	    	return pedido;
 	    	
