@@ -6,6 +6,7 @@ package com.app.models;
 
 import com.app.alimentos.Alimento;
 import com.app.pizzeria.Cocina;
+import com.app.pizzeria.Menu;
 import java.util.Date;
 import java.util.LinkedList;
 import com.app.pizzeria.Mesa;
@@ -20,44 +21,79 @@ public class Mesero extends Empleado{
 		super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
 	}
 	
-	
-	
+        private LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes){
+            LinkedList<Alimento> pedidoTerminado=new LinkedList<Alimento>();
+            LinkedList<Alimento> pedidoActual=new LinkedList<Alimento>();
+            int i=0;
+            Mesa mesaAtendida=listaMesa4.get(i);
+            while ((mesaAtendida.isPedidoTomado()==true || mesaAtendida.getTiempoComer()==-1)&& i<listaMesa4.size()) {
+                i++;
+                mesaAtendida=listaMesa4.get(i);
+            }
+            if (i<listaMesa4.size()){
+                mesaAtendida.setPedidoTomado(true);
+                for (Cliente cliente:mesaAtendida.getGenteSentada()) {
+                    pedidoActual=cliente.pedirComida (menu);
+                    consultarIngredientes(pedidoActual, ingredientes);
+                    for (int j = 0; j < pedidoActual.size(); j++) {
+                        pedidoTerminado.addLast(pedidoActual.get(j));
 
+                    }
+                }
+                return pedidoTerminado;
+            }
+            i=0;
+            mesaAtendida=listaMesa2.get(i);
+            while ((mesaAtendida.isPedidoTomado()==true || mesaAtendida.getTiempoComer()==-1)&& i<listaMesa2.size()) {
+                i++;
+                mesaAtendida=listaMesa2.get(i);
+            }
+            if(i<listaMesa2.size()){
+                mesaAtendida.setPedidoTomado(true);
+                for (Cliente cliente:mesaAtendida.getGenteSentada()) {
+                    pedidoActual=cliente.pedirComida (menu);
+                    consultarIngredientes(pedidoActual, ingredientes);
+                    for (int j = 0; j < pedidoActual.size(); j++) {
+                        pedidoTerminado.addLast(pedidoActual.get(j));
+
+                    }
+                }
+                return pedidoTerminado;
+                
+            }else{
+                return null;
+            }
+        }
         
-      /*  //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
-        private boolean consultarIngredientes(LinkedList<Alimento> listaPedido){
-            Cocina verIngredientes = new Cocina();
+        //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
+        private void consultarIngredientes(LinkedList<Alimento> listaPedido, float[] ingredientes){
             float pos;
             //realizo un for para ver los pedidos del cliente
             for (Alimento consulta:listaPedido) {
-                    //Si figura true, entonces se realiza un for para verificar si se encuentra la cantidad
-                    //necesaria de ingredientes para cada alimento
-                    for (int i = 0; i < consulta.getIngredientes().size()-1; i++) {
-                        if (i%2!=0) {
-                            pos=consulta.getIngredientes().get(i-1);
-                            if (verIngredientes.cantIngredientes[(int)pos-1] < consulta.getIngredientes().get(i)){
-                                consulta.setHayIngredientes(false);
-                                //En caso de que algun alimento necesite un ingrediente que no haya tal cantidad
-                                // entonces se marca el alimento como "false" y se retorna falso
-                                return false;
-                            }
-                        }
-                }
-            }
-            //Si en ningun momento devolvio false entonces existe la cantidad de ingredientes 
-            //necesarios para preparar los alimentos, se utilizara este for para eliminar los ingredientes
-            //que se usaran
-            for (Alimento consulta:listaPedido) {
-                for (int i = 0; i < consulta.getIngredientes().size()-1; i++) {
+                //Si figura true, entonces se realiza un for para verificar si se encuentra la cantidad
+                //necesaria de ingredientes para cada alimento
+                for (int i = 0; i < ingredientes.length; i++) {
                     if (i%2!=0) {
                         pos=consulta.getIngredientes().get(i-1);
-                        verIngredientes.cantIngredientes[(int)pos-1]-=consulta.getIngredientes().get(i);
+                        if (ingredientes[(int)pos-1] < consulta.getIngredientes().get(i)){
+                            consulta.setHayIngredientes(false);
+                            //En caso de que algun alimento necesite un ingrediente que no haya tal cantidad
+                            // entonces se marca el alimento como "false" y se retorna falso
+                        }
                     }
                 }
             }
-            return true;
-        } */
-        
+            for (Alimento consulta:listaPedido) {
+                for (int i = 0; i < ingredientes.length; i++) {
+                    if (i%2!=0) {
+                        pos=consulta.getIngredientes().get(i-1);
+                        ingredientes[(int)pos-1]-=consulta.getIngredientes().get(i);
+                        //verIngredientes.cantIngredientes[(int)pos-1]-=consulta.getIngredientes().get(i);
+                    }
+                }
+            }
+        }
+                
 	private int contarMesas(LinkedList<Mesa> listaMesas) {
 		int suma=0;
 		for(Mesa mesas:listaMesas) {
@@ -125,7 +161,7 @@ public class Mesero extends Empleado{
 		}
 	}
 	
-	public void recibirCliente(LinkedList<Cliente> clientes, LinkedList<Mesa> actual2, LinkedList<Mesa> actual4) {
+	public LinkedList<Cliente> recibirCliente(LinkedList<Cliente> clientes, LinkedList<Mesa> actual2, LinkedList<Mesa> actual4) {
 		int cantidadGrupo=clientes.size();
 		int cantLibre2=contarMesas(actual2);
 		int cantlibre4=contarMesas(actual4);
@@ -135,8 +171,10 @@ public class Mesero extends Empleado{
 		if (cantidadGrupo<=(cantlibre4*4)+(cantLibre2*2)) {
 			//Hay lugar para todos, ahora debo acomodarlos lo mas eficiente posible
 				acomodarClientes(cantidadGrupo, actual2, actual4,clientes);
+                                return null;
 			}else {
 				System.out.println("Lo siento, no tenemos mesas disponibles");
+                                return clientes;
 			}
 		
 	}
