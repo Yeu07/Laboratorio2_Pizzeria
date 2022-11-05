@@ -5,15 +5,42 @@
 package com.app.models;
 
 import java.util.Date;
+import java.util.LinkedList;
+
+import com.app.alimentos.Alimento;
 
 /**
  *
  * @author Estudiar
  */
-public class Cocinero extends Empleado{
-    private int tiempoOcupado;
+public class Cocinero extends Empleado implements Cocinar {
+    private int tiempoOcupado=-1;
     
     public Cocinero(String nombre, String nacionalidad,float sueldo,int dni, Date fechaNacimiento) {
 	super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
     }
+
+	public int getTiempoOcupado() {
+		return tiempoOcupado;
+	}
+
+	public void setTiempoOcupado(int tiempoOcupado) {
+		this.tiempoOcupado = tiempoOcupado;
+	}
+	
+	
+	private int contarTiempoPedido(LinkedList<Alimento> pedido) {
+		int tiempo=0;
+		for(Alimento alimento:pedido) {
+			tiempo+=alimento.getTiempoElaboracion();
+		}
+		return tiempo;
+	}
+	
+	@Override
+	public void cocinar(LinkedList<Alimento> pedido,int horaActual) {
+		this.tiempoOcupado=contarTiempoPedido(pedido)+horaActual;
+	}
+
+
 }

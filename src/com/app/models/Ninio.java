@@ -58,7 +58,5 @@ public class Ninio extends Cliente {
 	    	
 	    	return pedido;
 	    	
-	    	
-	    
 	    }
 }
