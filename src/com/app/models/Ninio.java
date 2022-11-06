@@ -50,7 +50,7 @@ public class Ninio extends Cliente {
 	    		int posBebida=-1;
 	    		do {
 	    			posBebida=random.nextInt(menu.getBebidas().length);
-	    		}while(posBebida==1 || posBebida==4);
+	    		}while(posBebida==1 || posBebida==4 || menu.getBebidas()[posBebida].getHayIngredientes()==false);
 	    		pedido.add(menu.buscaBebida(posBebida));
 	    	}
 	    	

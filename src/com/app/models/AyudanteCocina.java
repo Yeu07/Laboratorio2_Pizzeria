@@ -55,7 +55,10 @@ public class AyudanteCocina extends Empleado implements Cocinar{
 		
 	}
 	
-	public void restarTiempo(int tiempo) {
-		this.tiempoOcupado=tiempo-this.tiempoOcupado;
+	public boolean tiempoAgotado(int tiempo) {
+		if(tiempo-this.tiempoOcupado<0) {
+			return true;
+		};
+		return false;
 	}
 }

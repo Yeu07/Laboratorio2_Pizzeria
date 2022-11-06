@@ -29,25 +29,18 @@ public class Mesero extends Empleado{
 		return null;
 	}
 	
-        public LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes){
+        public LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes,int hora){
             LinkedList<Alimento> pedidoTerminado=new LinkedList<Alimento>();
             LinkedList<Alimento> pedidoActual=new LinkedList<Alimento>();
             int tiempoTotal=0;
             Mesa mesaAtendida=buscarMesaSinAtender(listaMesa4);
             if(mesaAtendida!=null) {
             	mesaAtendida.setPedidoTomado(true);
-            	
-            	
-            	//System.out.println("Gente Sentada"+mesaAtendida.getGenteSentada());
-            	
-            	
             	for(Cliente cliente:mesaAtendida.getGenteSentada()) {
             		pedidoActual=cliente.pedirComida(menu);
-            		System.out.println("Pedido Actual"+pedidoActual);
-            		tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes);
+            		tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes,hora);
             		for(int j=0;j<pedidoActual.size();j++) {
-            			pedidoTerminado.addLast(pedidoActual.getFirst());
-            			pedidoActual.removeFirst();
+            			pedidoTerminado.addLast(pedidoActual.get(j));
             		}
             	}
             	mesaAtendida.sumarTiempo(tiempoTotal);
@@ -58,8 +51,8 @@ public class Mesero extends Empleado{
                 mesaAtendida.setPedidoTomado(true);
                 for (Cliente cliente:mesaAtendida.getGenteSentada()) {
                     pedidoActual=cliente.pedirComida (menu);
-                    tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes);
-                    for (int j = 0; j < pedidoActual.size(); j++) {
+                    tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes,hora);
+                    for (int j = 0; j <pedidoActual.size(); j++) {
                         pedidoTerminado.addLast(pedidoActual.get(j));
 
                     }
@@ -71,9 +64,10 @@ public class Mesero extends Empleado{
         }
         
         //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
-        private int consultarIngredientes(LinkedList<Alimento> listaPedido, float[] ingredientes){
+        private int consultarIngredientes(LinkedList<Alimento> listaPedido, float[] ingredientes,int hora){
             float pos;
             int tiempo=0;
+            boolean imprimi=false;
             //realizo un for para ver los pedidos del cliente
             for (Alimento consulta:listaPedido) {
                 //Si figura true, entonces se realiza un for para verificar si se encuentra la cantidad
@@ -83,7 +77,10 @@ public class Mesero extends Empleado{
                         pos=consulta.getIngredientes().get(i-1);
                         if (ingredientes[(int)pos-1] <= consulta.getIngredientes().get(i)){
                             consulta.setHayIngredientes(false);
-                            System.out.println("Nos quedamos sin ingredientes para"+consulta.getClass().getSimpleName());
+                            if( imprimi==false) {
+                            System.out.println("Nos quedamos sin ingredientes para"+consulta.getClass().getSimpleName()+"El tiempo es "+hora );
+                            imprimi=true;
+                            }
                             //En caso de que algun alimento necesite un ingrediente que no haya tal cantidad
                             // entonces se marca el alimento como "false" y se retorna falso
                         }
@@ -127,9 +124,11 @@ public class Mesero extends Empleado{
 	private void sentarGente(LinkedList<Cliente> clientes,Mesa mesa,int tamanioMesa) {
 		LinkedList<Cliente> genteSentada=new LinkedList<Cliente>();
 		//segun el tamanio que entre en la mesa, agrego esos clientes
-		for (int i=0;i<tamanioMesa-1;i++) {
+		for (int i=0;i<tamanioMesa;i++) {
+			if(clientes.size()>0) {
 			genteSentada.add(clientes.getFirst());
 			clientes.removeFirst();
+			}
 		}
 		mesa.setGenteSentada(genteSentada);
 	}

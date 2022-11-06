@@ -54,8 +54,11 @@ public class Cocinero extends Empleado implements Cocinar {
 		this.ocupado=true;
 	}
 	
-	public void restarTiempoActual(int tiempo) {
-		this.tiempoOcupado=tiempo-this.tiempoOcupado;
+	public boolean tiempoAgotado(int tiempo) {
+		if(tiempo-this.tiempoOcupado<0) {
+			return true;
+		};
+		return false;
 	}
 
 }

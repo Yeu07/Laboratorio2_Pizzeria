@@ -25,8 +25,11 @@ public class Mesa {
 		this.tiempoComer+=tiempo;
 	}
 	
-	public void restarTiempo(int tiempo) {
-		this.tiempoComer=tiempo-this.tiempoComer;
+	public boolean tiempoAgotado(int tiempo) {
+		if(tiempo-this.tiempoComer<0) {
+			return true;
+		};
+		return false;
 	}
 
 	public void setPedidoTomado(boolean pedidoTomado) {

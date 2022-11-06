@@ -33,8 +33,8 @@ public class Pizzeria {
     
     public Pizzeria() {}
     
-    public void sumarHora(int horaActual) {
-    	this.horaActual+=horaActual;
+    public void sumarHora(int tiempo) {
+    	this.horaActual+=tiempo;
     }
     
 	public int getHoraActual() {
