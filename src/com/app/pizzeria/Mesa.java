@@ -26,7 +26,7 @@ public class Mesa {
 	}
 	
 	public boolean tiempoAgotado(int tiempo) {
-		if(tiempo-this.tiempoComer<0) {
+		if(this.tiempoComer-tiempo<0) {
 			return true;
 		};
 		return false;
