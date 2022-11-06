@@ -12,11 +12,26 @@ import java.util.LinkedList;
  */
 public class Alimento {
     protected int tiempoElaboracion=1;
+    protected int cantpedida=0;
     protected float precio;
     protected LinkedList<Float> ingredientes=new LinkedList<Float>();
     protected boolean hayIngredientes=true;
     
-    public LinkedList<Float> getIngredientes(){
+    
+    
+    public int getCantpedida() {
+		return cantpedida;
+	}
+
+	public void setCantpedida(int cantpedida) {
+		this.cantpedida = cantpedida;
+	}
+	
+	public void sumarCantPedida() {
+		this.cantpedida+=1;
+	}
+
+	public LinkedList<Float> getIngredientes(){
         return this.ingredientes;
     }
 

@@ -16,6 +16,7 @@ public class Empleado {
 	protected final int dni;
 	protected final Date fechaNacimiento;
 	
+
 	public Empleado(String nombre, String nacionalidad, float sueldo, int dni, Date fechaNacimiento) {
 		this.nombre=nombre;
 		this.sueldo=sueldo;

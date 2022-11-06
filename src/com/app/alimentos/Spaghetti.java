@@ -14,6 +14,6 @@ public class Spaghetti extends Pasta{
         this.ingredientes.add(33f);
         this.ingredientes.add(100f);
         this.precio=500f;
-        this.tiempoElaboracion=20;
+        this.tiempoElaboracion=15;
     }
 }

@@ -21,7 +21,6 @@ public class Cajero extends Empleado {
 	}
     
 	public void cobrar(Caja caja, float dinero) {
-		System.out.println("El total es "+dinero);
 		caja.setDineroCaja(dinero);
 	}
 	

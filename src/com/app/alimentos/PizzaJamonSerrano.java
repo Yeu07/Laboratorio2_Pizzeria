@@ -9,7 +9,7 @@ public class PizzaJamonSerrano extends PizzaMuzzarella {
         this.ingredientes.add(15f);
         this.ingredientes.add(8f);
         this.precio=950f;
-        this.tiempoElaboracion=30;
+        this.tiempoElaboracion=10;
         
     }
 }

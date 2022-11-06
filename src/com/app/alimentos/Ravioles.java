@@ -14,6 +14,6 @@ public class Ravioles extends Pasta{
         this.ingredientes.add(30f);
         this.ingredientes.add(100f);
         this.precio=600f;
-        this.tiempoElaboracion=20;
+        this.tiempoElaboracion=15;
     }
 }

@@ -15,11 +15,24 @@ import com.app.alimentos.Alimento;
  */
 public class AyudanteCocina extends Empleado implements Cocinar{
     private int tiempoOcupado=-1;
+    private boolean ocupado=false;
     public AyudanteCocina(String nombre, String nacionalidad,float sueldo,int dni, Date fechaNacimiento) {
 	super(nombre,nacionalidad,sueldo,dni,fechaNacimiento);
     }
     
-    public int getTiempoOcupado() {
+   
+    
+    public boolean isOcupado() {
+		return ocupado;
+	}
+
+
+	public void setOcupado(boolean ocupado) {
+		this.ocupado = ocupado;
+	}
+
+
+	public int getTiempoOcupado() {
 		return tiempoOcupado;
 	}
 
@@ -38,6 +51,11 @@ public class AyudanteCocina extends Empleado implements Cocinar{
 	@Override
 	public void cocinar(LinkedList<Alimento> pedido, int horaActual) {
 		this.tiempoOcupado=contarTiempoPedido(pedido)+horaActual;
+		this.ocupado=true;
 		
+	}
+	
+	public void restarTiempo(int tiempo) {
+		this.tiempoOcupado=tiempo-this.tiempoOcupado;
 	}
 }

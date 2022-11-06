@@ -12,13 +12,13 @@ import com.app.models.*;
  */
 public class Pizzeria {
     private String nombre="La Tana";
-    private String ubicacion;
-    private double telefono;
+    private String ubicacion="Italia";
+    private int horaActual=0;
     private LinkedList<Mesa> mesaActual2=new LinkedList<Mesa>();
     private LinkedList<Mesa> mesaActual4= new LinkedList<Mesa>();
     private static int totalMesas2=8;
-    private static int totalMesas4=8;
-    private boolean abierto;
+    private static int totalMesas4=16;
+    private boolean abierto=false;
     private Cocina cocina=new Cocina();
     private Caja caja=new Caja();
     private LinkedList<Mesero> meseros= new LinkedList<Mesero>();
@@ -31,11 +31,35 @@ public class Pizzeria {
     private LinkedList<LinkedList<Cliente>> listaEspera= new LinkedList<LinkedList<Cliente>>();
     private LinkedList<Cajero> cajeros = new LinkedList<Cajero>();
     
-    public Pizzeria(String ubicacion,int telefono, boolean abierto) {
-    	this.telefono=telefono;
-    	this.ubicacion=ubicacion;
-    	this.abierto=abierto;
+    public Pizzeria() {}
+    
+    public void sumarHora(int horaActual) {
+    	this.horaActual+=horaActual;
     }
+    
+	public int getHoraActual() {
+		return horaActual;
+	}
+
+
+
+	public void setHoraActual(int horaActual) {
+		this.horaActual = horaActual;
+	}
+
+
+
+	public LinkedList<Cajero> getCajeros() {
+		return cajeros;
+	}
+
+
+
+	public void setCajeros(LinkedList<Cajero> cajeros) {
+		this.cajeros = cajeros;
+	}
+
+
 
 	public String getNombre() {
 		return this.nombre;
@@ -53,13 +77,6 @@ public class Pizzeria {
 		this.ubicacion = ubicacion;
 	}
 
-	public double getTelefono() {
-		return this.telefono;
-	}
-
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
 
 	public LinkedList<Mesa> getMesaActual2() {
 		return this.mesaActual2;
@@ -215,8 +232,10 @@ public class Pizzeria {
     		break;
     	case "Cajero":
     		this.cajeros.add((Cajero) empleado);
+    		break;
     	case "Mesero":
     		this.meseros.add((Mesero) empleado);
+    		break;
     	}
     }
     

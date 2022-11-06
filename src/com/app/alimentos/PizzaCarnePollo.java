@@ -9,7 +9,7 @@ public class PizzaCarnePollo extends PizzaMuzzarella {
         this.ingredientes.add(14f);
         this.ingredientes.add(8f);
         this.precio=850f;
-        this.tiempoElaboracion=25;
+        this.tiempoElaboracion=15;
         
     }
 }

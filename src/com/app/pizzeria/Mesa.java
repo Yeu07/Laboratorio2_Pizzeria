@@ -5,7 +5,7 @@ import com.app.models.*;
 public class Mesa {
 	
 	int tiempoComer=-1;
-	LinkedList<Cliente> genteSentada;
+	LinkedList<Cliente> genteSentada=new LinkedList<Cliente>();
 	boolean pedidoTomado=false;
 	
 	
@@ -19,6 +19,14 @@ public class Mesa {
 
 	public boolean isPedidoTomado() {
 		return pedidoTomado;
+	}
+	
+	public void sumarTiempo(int tiempo) {
+		this.tiempoComer+=tiempo;
+	}
+	
+	public void restarTiempo(int tiempo) {
+		this.tiempoComer=tiempo-this.tiempoComer;
 	}
 
 	public void setPedidoTomado(boolean pedidoTomado) {

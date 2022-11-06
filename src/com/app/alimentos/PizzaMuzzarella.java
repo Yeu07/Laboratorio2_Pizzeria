@@ -20,7 +20,7 @@ public class PizzaMuzzarella extends Alimento{
         this.ingredientes.add(14f);
         this.ingredientes.add(8f);
         this.precio=500f;
-        this.tiempoElaboracion=20;
+        this.tiempoElaboracion=8;
     }
     
     
