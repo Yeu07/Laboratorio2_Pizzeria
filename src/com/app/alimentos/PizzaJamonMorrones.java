@@ -10,7 +10,7 @@ public class PizzaJamonMorrones extends PizzaMuzzarella {
         this.ingredientes.add(1f);
         this.ingredientes.add(14f);
         this.ingredientes.add(8f);
-        this.precio=600f;
+        this.precio=8.7f;
         this.tiempoElaboracion=10;
         
     }

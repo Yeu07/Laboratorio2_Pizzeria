@@ -13,7 +13,7 @@ public class Torta extends Alimento{
         super();
         this.ingredientes.add(29f);
         this.ingredientes.add(1f);
-        this.precio=1000f;
+        this.precio=9f;
         this.tiempoElaboracion=1;
     }
 }

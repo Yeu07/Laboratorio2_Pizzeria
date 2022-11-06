@@ -29,7 +29,7 @@ public class Mesero extends Empleado{
 		return null;
 	}
 	
-        public LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes,int hora){
+        public LinkedList<Alimento> recibirPedido(LinkedList<Mesa> listaMesa2, LinkedList<Mesa> listaMesa4,Menu menu,float[] ingredientes){
             LinkedList<Alimento> pedidoTerminado=new LinkedList<Alimento>();
             LinkedList<Alimento> pedidoActual=new LinkedList<Alimento>();
             int tiempoTotal=0;
@@ -38,7 +38,7 @@ public class Mesero extends Empleado{
             	mesaAtendida.setPedidoTomado(true);
             	for(Cliente cliente:mesaAtendida.getGenteSentada()) {
             		pedidoActual=cliente.pedirComida(menu);
-            		tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes,hora);
+            		tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes);
             		for(int j=0;j<pedidoActual.size();j++) {
             			pedidoTerminado.addLast(pedidoActual.get(j));
             		}
@@ -51,7 +51,7 @@ public class Mesero extends Empleado{
                 mesaAtendida.setPedidoTomado(true);
                 for (Cliente cliente:mesaAtendida.getGenteSentada()) {
                     pedidoActual=cliente.pedirComida (menu);
-                    tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes,hora);
+                    tiempoTotal+=consultarIngredientes(pedidoActual, ingredientes);
                     for (int j = 0; j <pedidoActual.size(); j++) {
                         pedidoTerminado.addLast(pedidoActual.get(j));
 
@@ -64,7 +64,7 @@ public class Mesero extends Empleado{
         }
         
         //Sirve para verificar el pedido de 1 cliente si se puede preparar o no
-        private int consultarIngredientes(LinkedList<Alimento> listaPedido, float[] ingredientes,int hora){
+        private int consultarIngredientes(LinkedList<Alimento> listaPedido, float[] ingredientes){
             float pos;
             int tiempo=0;
             boolean imprimi=false;
@@ -78,7 +78,7 @@ public class Mesero extends Empleado{
                         if (ingredientes[(int)pos-1] <= consulta.getIngredientes().get(i)){
                             consulta.setHayIngredientes(false);
                             if( imprimi==false) {
-                            System.out.println("Nos quedamos sin ingredientes para"+consulta.getClass().getSimpleName()+"El tiempo es "+hora );
+                            System.out.println("Nos quedamos sin ingredientes para"+consulta.getClass().getSimpleName() );
                             imprimi=true;
                             }
                             //En caso de que algun alimento necesite un ingrediente que no haya tal cantidad
@@ -141,13 +141,13 @@ public class Mesero extends Empleado{
 				//Busco si hay mesa de a 4, si hay los asigno
 				Mesa mesaVacia4=buscarMesaVacia(mesas4);
 				if(mesaVacia4!=null) {
-					mesaVacia4.setTiempoComer(60+horaActual);
+					mesaVacia4.setTiempoComer(90+horaActual);
 					cantidadGrupo-=4;
 					sentarGente(listaClientes, mesaVacia4, 4);
 				}else {
 					//	Como ya verifique que el grupo entrara y no hay mesas de 4 , debo ubicarlos en mesa de 2 
 					Mesa mesaVacia2=buscarMesaVacia(mesas2);
-					mesaVacia2.setTiempoComer(60+horaActual);
+					mesaVacia2.setTiempoComer(90+horaActual);
 					cantidadGrupo-=2;
 					sentarGente(listaClientes, mesaVacia2, 2);
 				}
@@ -155,13 +155,13 @@ public class Mesero extends Empleado{
 				//Si son 2 o - primero busco si hay mesa de 2 disponible, si hay los ubico 
 				Mesa mesaVacia2=buscarMesaVacia(mesas2);
 				if(mesaVacia2!=null) {
-					mesaVacia2.setTiempoComer(60+horaActual);
+					mesaVacia2.setTiempoComer(90+horaActual);
 					cantidadGrupo-=2;
 					sentarGente(listaClientes, mesaVacia2, 2);
 				}else {
 					//Si no hay mesa de 2, debo ubicarlos en mesa de 4
 					Mesa mesaVacia4=buscarMesaVacia(mesas4);
-					mesaVacia4.setTiempoComer(60+horaActual);
+					mesaVacia4.setTiempoComer(90+horaActual);
 					cantidadGrupo-=4;
 					sentarGente(listaClientes, mesaVacia4, 4);
 				}
@@ -170,7 +170,7 @@ public class Mesero extends Empleado{
 		}
 	}
 	
-	public boolean recibirCliente(LinkedList<Cliente> clientes, LinkedList<Mesa> actual2, LinkedList<Mesa> actual4,int horaActual) {
+	public boolean recibirCliente(LinkedList<Cliente> clientes, LinkedList<Mesa> actual2, LinkedList<Mesa> actual4,int horaActual,int[]demoras) {
 		int cantidadGrupo=clientes.size();
 		int cantLibre2=contarMesas(actual2);
 		int cantlibre4=contarMesas(actual4);
@@ -182,7 +182,7 @@ public class Mesero extends Empleado{
 				acomodarClientes(cantidadGrupo, actual2, actual4,clientes,horaActual);
                                 return true;
 			}else {
-				System.out.println("Lo siento, no tenemos mesas disponibles");
+				demoras[0]+=1;
                                 return false;
 			}
 		

@@ -13,7 +13,7 @@ import com.app.pizzeria.Menu;
 import com.app.pizzeria.Mesa;
 import com.app.pizzeria.Pizzeria;
 
-import java.util.Random;import javax.management.ListenerNotFoundException;
+import java.util.Random;
 
 
 /**
@@ -21,38 +21,41 @@ import java.util.Random;import javax.management.ListenerNotFoundException;
  * @author Estudiar
  */
 public class Laboratorio2 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-    	
-    	//Iniciamos Pizzeria
+	
+	public static void main(String[] args) {
+		//Iniciamos Pizzeria
     	Pizzeria pizzeria=new Pizzeria();
     	//Abrimos a las 10 de la mañaña
-    	pizzeria.setHoraActual(480);
+    	pizzeria.setHoraActual(360);
     	//Contratar Cocinero
     	pizzeria.contratarEmpleado(new Cocinero("Jorge","Italiano",2000f,44905308,new Date(122/02/02)));
     	pizzeria.contratarEmpleado(new Cocinero("Pepito","Italiano",2000f,44905309,new Date(122/02/02)));
+    	pizzeria.contratarEmpleado(new Cocinero("Bruno","Italiano",2000f,44905310,new Date(122/02/02)));
     	// Contratar Mesero
     	pizzeria.contratarEmpleado(new Mesero("Yeu","Italiano",10000f,44905311,new Date(122/02/02)));
         // Contratar AyudanteCocina
     	pizzeria.contratarEmpleado(new AyudanteCocina("Lucia","Italiano",1800f,44905312,new Date(122/02/02)));
+    	pizzeria.contratarEmpleado(new AyudanteCocina("Yague","Italiano",1800f,44905313,new Date(122/02/02)));
+    	pizzeria.contratarEmpleado(new AyudanteCocina("Juli","Italiano",1800f,44905314,new Date(122/02/02)));
     	//Contratar Cajero
     	pizzeria.contratarEmpleado(new Cajero("Messi","Italiano",1400f,44905315,new Date(122/02/02)));
     	//Random para saber cada cuanto entra cliente y cuantos movimientos vamos a hacer
-    	//Creamos Lista Random entre 30 y 50 Movimientos
+    	//30 movimientos
     	Random random=new Random();
-    	int cant=random.nextInt(50-30+1)+30;
+    	int cant=30;
 		LinkedList<Cliente>[] movimientos=generarMovimientos(cant);
+		int cantClientes=imprimirTotalClientes(movimientos);
 		//Agregar Mesas
 		iniciarMesas(pizzeria.getMesaActual2(), Pizzeria.getTotalMesas2());
 		iniciarMesas(pizzeria.getMesaActual4(),Pizzeria.getTotalMesas4());
 		boolean quedaGente=false;
-		
-		//Duplicado lista Ingredientes
-		
-		
+		//Contar cantidad Demoras
+		int[] demoras=new int[3];
+		demoras[0]=0;
+		demoras[1]=0;
+		demoras[2]=0;
+		System.out.println("Al principio teniamos estos ingredientes");
+		imprimirEstadoIngredientes(pizzeria.getCocina().getIngredientes(), pizzeria.getCocina().getCantIngredientes());
 		//La Tana Abre pizzeria
 		pizzeria.setAbierto(pizzeria.getGerente().abrirPizzeria());
 		//int que cuente en que movimiento estamos
@@ -60,25 +63,20 @@ public class Laboratorio2 {
 	
 		
 		//While donde se ejecuta todo
-		while (pizzeria.getHoraActual()<1380 && pos<30 && quedaGente==false) {
-			System.out.println("La hora actual es "+pizzeria.getHoraActual());
+		while (pizzeria.getHoraActual()<1380 || pos<cant || quedaGente==false) {
 			//Vamos a tomar que puedan entrar entre 1 y 3 grupos al mismo tiempo,pero esto es modificable
 			//Gneramos random con la cantidad que va a entrar
 			if(pizzeria.getHoraActual()<1380) {
 				int cantGrupo=random.nextInt(3)+1;
 				for(int i=0;i<cantGrupo;i++) {
 					//Recibimos grupo Clientes y lo agregamos en lista Espera
-					
 					if (pos<cant) {
-						System.out.println("Grupo que entro "+pos);
-						System.out.println(pos+" Es < "+ cant);
-						System.out.println("La pos es "+ pos);
 						pizzeria.getListaEspera().addLast(movimientos[pos]);
 						pos+=1;
 					}
 				}
 			}
-			if(pizzeria.getHoraActual()>860) {
+			if(  (pos>20 && pos<=23)||(pos>40 && pos<=43)  ) {
 				pizzeria.getCocina().recargarIngredientes();
 				setearDisponible(pizzeria.getMenu());
 			}
@@ -89,15 +87,15 @@ public class Laboratorio2 {
 			do {
 				flag=false;
 				if(pizzeria.getListaEspera().size()>0) {
-					flag=pizzeria.getMeseros().getFirst().recibirCliente(pizzeria.getListaEspera().getFirst(), pizzeria.getMesaActual2(), pizzeria.getMesaActual4(), pizzeria.getHoraActual());
+					flag=pizzeria.getMeseros().getFirst().recibirCliente(pizzeria.getListaEspera().getFirst(), pizzeria.getMesaActual2(), pizzeria.getMesaActual4(), pizzeria.getHoraActual(),demoras);
 					if(flag==true) {
 						pizzeria.getListaEspera().removeFirst();
 					}
 				}
+				//Sumamos Tiempo preestablecido
+	    		pizzeria.sumarHora(5);
 			}while( flag==true && pizzeria.getListaEspera().size()>0);
 			
-    		//Sumamos Tiempo preestablecido
-    		pizzeria.sumarHora(5);
     		//Verificamos que ningun Cocinero haya terminado de cocinar
     		restarTiempoCocineros(pizzeria.getCocineros(), pizzeria.getAyudantesCocina(),pizzeria.getHoraActual());
     		//verificamos que ningun grupo haya terminado de comer
@@ -107,7 +105,7 @@ public class Laboratorio2 {
     			//Hacemos que el Mesero verifique si hay pedidos para tomar, va a ir mesa por mesa
     			//Si hay mesas para tomar pedido, seguis buscando hasta que ya no queden
     			//Si no, salimos del while
-    			pedidoTotalMesa=pizzeria.getMeseros().getFirst().recibirPedido(pizzeria.getMesaActual2(), pizzeria.getMesaActual4(),pizzeria.getMenu() , pizzeria.getCocina().getCantIngredientes(),pizzeria.getHoraActual());
+    			pedidoTotalMesa=pizzeria.getMeseros().getFirst().recibirPedido(pizzeria.getMesaActual2(), pizzeria.getMesaActual4(),pizzeria.getMenu() , pizzeria.getCocina().getCantIngredientes());
     			if(pedidoTotalMesa!=null) {
     				//Agregamos el pedido a la lista de pedidos de la cocina
     				pizzeria.getCocina().getListaPedidos().addLast(pedidoTotalMesa);
@@ -117,32 +115,109 @@ public class Laboratorio2 {
     			}
     			pizzeria.sumarHora(5);
     		}while(pedidoTotalMesa!=null);
-    		// Nos queda ver tema Cocineros y Ayudantes
-    		//Consultamos si hay pedido y si lo hay , tratamos de buscar algun cocinero o ayudante libre que lo prepare
-    		buscarSiHayCocinero(pizzeria.getCocineros(), pizzeria.getAyudantesCocina(), pizzeria.getCocina().getListaPedidos(), pizzeria.getHoraActual());
     		//Cada vez que se conuslte, pasaran 5 minutos
     		pizzeria.sumarHora(5);
     		//Verificamos que ningun Cocinero haya terminado de cocinar
     		restarTiempoCocineros(pizzeria.getCocineros(), pizzeria.getAyudantesCocina(),pizzeria.getHoraActual());
     		//verificamos que ningun grupo haya terminado de comer
     		restarTiempoMesas(pizzeria.getMesaActual2(), pizzeria.getMesaActual4(), pizzeria.getHoraActual());
+    		// Nos queda ver tema Cocineros y Ayudantes
+    		//Consultamos si hay pedido y si lo hay , tratamos de buscar algun cocinero o ayudante libre que lo prepare
+    		if(pizzeria.getCocina().getListaPedidos().size()>0) {
+    		buscarSiHayCocinero(pizzeria.getCocineros(), pizzeria.getAyudantesCocina(), pizzeria.getCocina().getListaPedidos(), pizzeria.getHoraActual(),demoras);
+    		}
     		//Usamos numero random para saber cuando vendran prox clientes
     		pizzeria.sumarHora(random.nextInt(15)+1);
     		//Verificamos que ningun Cocinero haya terminado de cocinar
     		restarTiempoCocineros(pizzeria.getCocineros(), pizzeria.getAyudantesCocina(),pizzeria.getHoraActual());
     		//verificamos que ningun grupo haya terminado de comer
     		restarTiempoMesas(pizzeria.getMesaActual2(), pizzeria.getMesaActual4(), pizzeria.getHoraActual());
-    		System.out.println("HORA FINAL BUCLE"+pizzeria.getHoraActual());
     		//Si la pizzeria ya cerro, debo verificar que no quede nadie cocinando,comiendo,en espera o pedido en espera
     		if(pizzeria.getHoraActual()>1380) {
     			quedaGente=verificarQueNoQuedeNadie(pizzeria.getListaEspera(), pizzeria.getCocina().getListaPedidos(), pizzeria.getMesaActual2(), pizzeria.getMesaActual4(), pizzeria.getCocineros(), pizzeria.getAyudantesCocina());
     			
     		}
     	}
+    	buscarComidaMayorConsumida(pizzeria.getMenu());
+    	System.out.println(" ");
+    	System.out.println("Las cantidad de demoras en mesas fueron "+ demoras[0]);
+    	System.out.println(" ");
+    	System.out.println("Las cantidad de demoras en cocina fueron "+ demoras[1]+" Y el promedio de espera fue de " + demoras[2]/demoras[1]+" minutos");
+    	System.out.println(" ");
+    	System.out.println("El gasto promedio fue "+ pizzeria.getCaja().getDineroCaja()/cantClientes+" Euros");
+    	System.out.println(" ");
+    	System.out.println("Al final tenemos estos ingredientes, hicimos reestock en el medio");
+    	imprimirEstadoIngredientes(pizzeria.getCocina().getIngredientes(), pizzeria.getCocina().getCantIngredientes());
+    }
+	
     	
     	
+    
+    private static int imprimirTotalClientes(LinkedList<Cliente>[] movimientos) {
+    	int ninios=0,turistas=0,jovenes=0,trabajadores=0;
+    	for(LinkedList<Cliente> lista:movimientos) {
+    		for(Cliente clientes:lista) {
+    			switch(clientes.getClass().getSimpleName()) {
+    			case "Ninio":
+    				ninios+=1;
+    				break;
+    			case "Joven":
+    				jovenes+=1;
+    				break;
+    			case "Trabajador":
+    				trabajadores+=1;
+    				break;
+    			case "Turista":
+    				turistas+=1;
+    				break;
+    			}
+    		}
+    	}
+    	System.out.println("La cantidad de gente que entro en este dia fue " + (ninios+jovenes+trabajadores+turistas));
+    	System.out.println(" ");
+    	System.out.println("La cantidad de Ninios fue "+ ninios);
+    	System.out.println(" ");
+    	System.out.println("La cantidad de Jovenes fue "+ jovenes);
+    	System.out.println(" ");
+    	System.out.println("La cantidad de Trabajadores fue "+ trabajadores);
+    	System.out.println(" ");
+    	System.out.println("La cantidad de Turista fue "+ turistas);
+    	return ninios+jovenes+trabajadores+turistas;
+    }
+    
+    
+    private static Alimento recorrerBuscandoMayorPedido(Alimento[] listaAlimentos,int max,Alimento mayor) {
+    	for(Alimento alimento:listaAlimentos) {
+    		if(alimento.getCantpedida()>max) {
+    			max=alimento.getCantpedida();
+    			mayor=alimento;
+    		}
+    	}
+    	return mayor;
+    }
+    
+    private static void buscarComidaMayorConsumida(Menu menu) {
+    	Alimento mayor;
+    	mayor=recorrerBuscandoMayorPedido(menu.getBebidas(), 0, null);
+    	System.out.println("La bebida mas pedida por los clientes fue: "+mayor.getClass().getSimpleName()+" con un total de "+ mayor.getCantpedida());
+    	System.out.println(" ");
+    	mayor=recorrerBuscandoMayorPedido(menu.getCafes(), 0, null);
+    	System.out.println("El cafe mas pedido por los clientes fue: "+mayor.getClass().getSimpleName()+" con un total de "+ mayor.getCantpedida());
+    	System.out.println(" ");
+    	mayor=recorrerBuscandoMayorPedido(menu.getPostres(), 0, null);
+    	System.out.println("El postre que mas pidieron los clientes fue: "+mayor.getClass().getSimpleName()+" con un total de "+ mayor.getCantpedida());
+    	System.out.println(" ");
+    	mayor=recorrerBuscandoMayorPedido(menu.getPastas(), 0, null);
+    	System.out.println("La pasta mas pedida por los clientes fue: "+mayor.getClass().getSimpleName()+" con un total de "+ mayor.getCantpedida());
+    	System.out.println(" ");
+    	mayor=recorrerBuscandoMayorPedido(menu.getPizzas(),0, null);
+    	System.out.println("La pizza mas pedida por los clientes fue: "+mayor.getClass().getSimpleName()+" con un total de "+ mayor.getCantpedida());
+    	System.out.println(" ");
+    	mayor=recorrerBuscandoMayorPedido(menu.getHamburguesas(),0, null);
+    	System.out.println("Se pidieron un total de "+ mayor.getCantpedida()+" Hamrurguesas");
+    	System.out.println(" ");
     	
-    	
+    
     }
     
     private static boolean verificarQueNoHayaNadieCocinando(LinkedList<Cocinero>listaCocineros,LinkedList<AyudanteCocina>listaAyudantes) {
@@ -215,14 +290,28 @@ public class Laboratorio2 {
     	return null;
     }
     
-    private static void imprimirPedido(LinkedList<Alimento>listaPedido) {
-    	//Recorro la lista del pedido y la imprimo
-    	for(Alimento alimento:listaPedido) {
-    		System.out.print(alimento.getClass().getSimpleName()+" ");
+    
+    private static void buscarDemoraMinimaCocina(LinkedList<Cocinero>listaCocineros,LinkedList<AyudanteCocina>listaAyudantes,int[]demoras) {
+    	int minimo=2147483647;
+    	//Recorro lista de cocineros para buscar cual tiene menor tiempo
+    	for(Cocinero cocinero:listaCocineros) {
+    		if(cocinero.getTiempoOcupado()<minimo) {
+    			minimo=cocinero.getTiempoOcupado();
+    		}
     	}
+    	//Guardo el menor y lo comparo con los ayudantes
+    	
+    	for(AyudanteCocina ayudante:listaAyudantes) {
+    		if(ayudante.getTiempoOcupado()<minimo) {
+    			minimo=ayudante.getTiempoOcupado();
+    		}
+    	}
+    	
+    	demoras[1]+=1;
+    	demoras[2]+=minimo/60;
     }
     
-    private static void buscarSiHayCocinero(LinkedList<Cocinero>listaCocineros,LinkedList<AyudanteCocina>listaAyudantes,LinkedList<LinkedList<Alimento>> listaEsperaPedido,int horaActual) {
+    private static void buscarSiHayCocinero(LinkedList<Cocinero>listaCocineros,LinkedList<AyudanteCocina>listaAyudantes,LinkedList<LinkedList<Alimento>> listaEsperaPedido,int horaActual,int[]demoras) {
     	AyudanteCocina ayudante=null;
     	Cocinero cocinero=null;
     	//Mientras haya pedidos en espera y cocineros o ayudantes libre, los pondremos a trabajar
@@ -233,8 +322,6 @@ public class Laboratorio2 {
         		if(cocinero!=null) {
         			//Si hay alguno libre, lo pongo a trabajar
         			cocinero.cocinar(listaEsperaPedido.getFirst(), horaActual);
-        			System.out.println("El cocinero tomo el siguiente pedido: ");
-        			imprimirPedido(listaEsperaPedido.getFirst());
         			listaEsperaPedido.removeFirst();
         		//Si no hay cocinero libre, trato de buscar un ayudante
         		}else {
@@ -242,14 +329,13 @@ public class Laboratorio2 {
         			//Si hay alguno libre lo pongo a laburar
             		if(ayudante!=null) {
             			ayudante.cocinar(listaEsperaPedido.getFirst(), horaActual);
-            			System.out.println("El ayudante tomo el siguiente pedido: ");
-            			imprimirPedido(listaEsperaPedido.getFirst());
             			listaEsperaPedido.removeFirst();
             		}
         		}
         	}
     		if(cocinero==null && ayudante==null) {
-    			System.out.println("Hay Demoras");
+    			//Busco entre cocineros y ayudantes cual es el que menor tiempo le queda para terminar comida
+    			buscarDemoraMinimaCocina(listaCocineros, listaAyudantes,demoras);
     		}
     	}while((cocinero!=null || ayudante!=null) && listaEsperaPedido.size()>0);
     	
@@ -271,7 +357,6 @@ public class Laboratorio2 {
     		//Le modifico el tiempo a cada cocinero
     		//Si ya no hay mas tiempo y estaba ocupado, el cocinero termino el pedido
     		if(cocinero.tiempoAgotado(horaActual) && cocinero.isOcupado()==true) {
-    			System.out.println("Cocinero termino pedido");
     			cocinero.setTiempoOcupado(-1);
     			cocinero.setOcupado(false);
     			
@@ -281,7 +366,6 @@ public class Laboratorio2 {
     		//Le modifico el tiempo a cada cocinero
     		//Si ya no hay mas tiempo y estaba ocupado, el ayudante termino el pedido
     		if(ayudante.tiempoAgotado(horaActual) && ayudante.isOcupado()==true) {
-    			System.out.println("Ayudante termino pedido");
     			ayudante.setTiempoOcupado(-1);
     			ayudante.setOcupado(false);
     		}
@@ -293,7 +377,6 @@ public class Laboratorio2 {
     		//Actualizamos la hora
     		//Si se les acabo el tiempo y ya habian pedido, los echamos 
     		if(mesa.tiempoAgotado(horaActual) && mesa.isPedidoTomado()==true) {
-    			System.out.println("Echamos Gente mesa de 2");
     			mesa.setGenteSentada(null);
     			mesa.setPedidoTomado(false);
     			mesa.setTiempoComer(-1);
@@ -303,7 +386,6 @@ public class Laboratorio2 {
     		//Actualizamos la hora
     		//Si se les acabo el tiempo y ya habian pedido, los echamos
     		if(mesa.tiempoAgotado(horaActual) && mesa.isPedidoTomado()==true) {
-    			System.out.println("Echamos gente de mesa 4");
     			mesa.setGenteSentada(null);
     			mesa.setPedidoTomado(false);
     			mesa.setTiempoComer(-1);
@@ -340,7 +422,7 @@ public class Laboratorio2 {
     	LinkedList<Cliente> lista=new LinkedList<Cliente>();
     	Cliente cliente;
     	Random random=new Random();
-    	int cantidad=random.nextInt(10);
+    	int cantidad=random.nextInt(15);
     	for(int i=0;i<cantidad+1;i++) {
     		cliente=tipoRandom();
     		lista.add(cliente);
@@ -362,7 +444,6 @@ public class Laboratorio2 {
     	//Recorro toda la lista del menu, seteando que hay ingredientes disponible
     	for(int i=0;i<lista.length;i++) {
     		if(lista[i].getHayIngredientes()==false) {
-    			System.out.println("No habia "+ lista[i]);
     			lista[i].setHayIngredientes(true);
     		}
     	}
@@ -377,6 +458,12 @@ public class Laboratorio2 {
     	recorrerLista(menu.getPizzas());
     	recorrerLista(menu.getPostres());
     	
+    }
+    
+    private static void imprimirEstadoIngredientes(String[]ingredientes,float[]cantidades) {
+    	for(int i=0;i<ingredientes.length;i++) {
+    		System.out.println( ingredientes[i]+ ": " + cantidades[i] );
+    	}
     }
     
 }

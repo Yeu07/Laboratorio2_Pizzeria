@@ -15,7 +15,7 @@ public class Batido extends Alimento{
         this.ingredientes.add(0.5f);
         this.ingredientes.add(34f);
         this.ingredientes.add(1f);
-        this.precio=600f;
+        this.precio=4f;
         this.tiempoElaboracion=15;
     }
 }

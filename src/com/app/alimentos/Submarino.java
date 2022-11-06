@@ -15,7 +15,7 @@ public class Submarino extends Alimento{
         this.ingredientes.add(1f);
         this.ingredientes.add(26f);
         this.ingredientes.add(0.25f);
-        this.precio=500f;
+        this.precio=5f;
         this.tiempoElaboracion=10;
     }
 }

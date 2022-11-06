@@ -13,7 +13,7 @@ public class Gaseosa extends Alimento{
         super();
         this.ingredientes.add(21f);
         this.ingredientes.add(1f);
-        this.precio=300f;
+        this.precio=4f;
         this.tiempoElaboracion=1;
     }
 }

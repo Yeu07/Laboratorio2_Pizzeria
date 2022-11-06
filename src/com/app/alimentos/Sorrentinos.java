@@ -13,7 +13,7 @@ public class Sorrentinos extends Pasta{
         super();
         this.ingredientes.add(32f);
         this.ingredientes.add(100f);
-        this.precio=500f;
+        this.precio=7.4f;
         this.tiempoElaboracion=15;
     }
 }

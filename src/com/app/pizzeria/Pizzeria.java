@@ -26,7 +26,6 @@ public class Pizzeria {
     private Menu menu = new Menu();
     private LinkedList<Cocinero> cocineros= new LinkedList<Cocinero>();
     private Gerente gerente = new Gerente("La Tana","Italiana",5000f,27271212, null);
-    private int cantNinios=0,cantTuristas=0,cantTrabajadores=0,cantJovenes=0;
     private int cantTotalClientes=0;
     private LinkedList<LinkedList<Cliente>> listaEspera= new LinkedList<LinkedList<Cliente>>();
     private LinkedList<Cajero> cajeros = new LinkedList<Cajero>();
@@ -174,37 +173,6 @@ public class Pizzeria {
 		this.gerente = gerente;
 	}
 
-	public int getCantNinios() {
-		return this.cantNinios;
-	}
-
-	public void setCantNinios(int cantNinios) {
-		this.cantNinios = cantNinios;
-	}
-
-	public int getCantTuristas() {
-		return this.cantTuristas;
-	}
-
-	public void setCantTuristas(int cantTuristas) {
-		this.cantTuristas = cantTuristas;
-	}
-
-	public int getCantTrabajadores() {
-		return this.cantTrabajadores;
-	}
-
-	public void setCantTrabajadores(int cantTrabajadores) {
-		this.cantTrabajadores = cantTrabajadores;
-	}
-
-	public int getCantJovenes() {
-		return this.cantJovenes;
-	}
-
-	public void setCantJovenes(int cantJovenes) {
-		this.cantJovenes = cantJovenes;
-	}
 
 	public int getCantTotalClientes() {
 		return this.cantTotalClientes;

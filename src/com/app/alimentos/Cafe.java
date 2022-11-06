@@ -13,7 +13,7 @@ public class Cafe extends Alimento{
         super();
         this.ingredientes.add(25f);
         this.ingredientes.add(9f);
-        this.precio=500f;
+        this.precio=3.5f;
         this.tiempoElaboracion=10;
     }
 }

@@ -17,7 +17,7 @@ public class Hamburguesa extends Alimento{
         this.ingredientes.add(1f);
         this.ingredientes.add(11f);
         this.ingredientes.add(1f);
-        this.precio=700f;
+        this.precio=8f;
         this.tiempoElaboracion=10;
         
     }

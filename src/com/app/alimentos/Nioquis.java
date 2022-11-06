@@ -13,7 +13,7 @@ public class Nioquis extends Pasta{
         super();
         this.ingredientes.add(31f);
         this.ingredientes.add(100f);
-        this.precio=550f;
+        this.precio=7f;
         this.tiempoElaboracion=15;
     }
 }

@@ -13,7 +13,7 @@ public class Helado extends Alimento{
         super();
         this.ingredientes.add(28f);
         this.ingredientes.add(0.25f);
-        this.precio=300f;
+        this.precio=3f;
         this.tiempoElaboracion=5;
     }
 }

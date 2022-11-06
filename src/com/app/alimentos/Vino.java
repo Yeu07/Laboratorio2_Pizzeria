@@ -13,7 +13,7 @@ public class Vino extends Alimento {
         super();
         this.ingredientes.add(19f);
         this.ingredientes.add(1f);
-        this.precio=400f;
+        this.precio=12f;
         this.tiempoElaboracion=1;
     }
 }

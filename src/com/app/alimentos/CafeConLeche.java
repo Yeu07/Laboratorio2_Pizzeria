@@ -15,7 +15,7 @@ public class CafeConLeche extends Alimento{
         this.ingredientes.add(5f);
         this.ingredientes.add(26f);
         this.ingredientes.add(0.1f);
-        this.precio=500f;
+        this.precio=3.7f;
         this.tiempoElaboracion=10;
     }
 }

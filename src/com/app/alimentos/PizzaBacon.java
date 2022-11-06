@@ -10,7 +10,7 @@ public class PizzaBacon extends PizzaMuzzarella{
     this.ingredientes.add(2f);
     this.ingredientes.add(14f);
     this.ingredientes.add(8f);
-    this.precio=950f;
+    this.precio=10f;
     this.tiempoElaboracion=15;
     }
 

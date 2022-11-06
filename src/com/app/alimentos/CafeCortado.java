@@ -15,7 +15,7 @@ public class CafeCortado extends Alimento{
         this.ingredientes.add(3f);
         this.ingredientes.add(26f);
         this.ingredientes.add(0.1f);
-        this.precio=500f;
+        this.precio=3.6f;
         this.tiempoElaboracion=10;
     }
 }

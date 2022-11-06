@@ -9,7 +9,7 @@ public class PizzaAtun extends PizzaMuzzarella {
         this.ingredientes.add(1f);
         this.ingredientes.add(15f);
         this.ingredientes.add(8f);
-        this.precio=700f;
+        this.precio=8f;
         this.tiempoElaboracion=10;  
     }
 }

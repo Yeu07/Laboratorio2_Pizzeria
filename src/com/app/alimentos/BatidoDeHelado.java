@@ -15,7 +15,7 @@ public class BatidoDeHelado extends Helado {
         this.ingredientes.add(0.5f);//Litros
         this.ingredientes.add(27f);
         this.ingredientes.add(40f);//Gramos
-        this.precio=500f;
+        this.precio=5f;
         this.tiempoElaboracion=10;
     }
 }

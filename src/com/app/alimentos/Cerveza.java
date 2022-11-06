@@ -13,7 +13,7 @@ public class Cerveza extends Alimento{
         super();
         this.ingredientes.add(18f);
         this.ingredientes.add(1f);
-        this.precio=300f;
+        this.precio=6f;
         this.tiempoElaboracion=1;
     }
 }
